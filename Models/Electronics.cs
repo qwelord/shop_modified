@@ -15,7 +15,7 @@
             Speed = speed;
         }
 
-        public Electronics(int id, string name, int price, int batteryCapacity, int speed) : base(id, name, price)
+        public Electronics(int id, string name, int price, string imagePath, int discount, int batteryCapacity, int speed) : base(id, name, price, imagePath, discount)
         {
             BatteryCapacity = batteryCapacity;
             Speed = speed;

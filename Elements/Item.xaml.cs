@@ -24,6 +24,24 @@ namespace Shop_Lukashevich.Elements
             tb_Name.Content = ShopData.Name;
             tb_Price.Content = "Цена: " + ShopData.Price;
 
+            if (!string.IsNullOrEmpty(ShopData.ImagePath))
+            {
+                img_Item.Source = new BitmapImage(new Uri(ShopData.ImagePath));
+            }
+            else
+            {
+                img_Item.Source = new BitmapImage(new Uri("/Shop_Lukashevich;component/Images/ic_item.png", UriKind.Relative));
+            }
+
+            if (ShopData.Discount > 0)
+            {
+                tb_DiscountedPrice.Content = $"Скидка: {ShopData.Discount}% | Цена: {ShopData.GetDiscountedPrice()}";
+            }
+            else
+            {
+                tb_DiscountedPrice.Content = "Скидка: Нет";
+            }
+
             if (ItemData is Models.Children)
             {
                 Models.Children ChildrenData = ItemData as Models.Children;

@@ -13,7 +13,7 @@
             this.Age = Age;
         }
 
-        public Children(int Id, string Name, int Price, int Age) : base(Id, Name, Price)
+        public Children(int Id, string Name, int Price, string ImagePath, int Discount, int Age) : base(Id, Name, Price, ImagePath, Discount)
         {
             this.Age = Age;
         }

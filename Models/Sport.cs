@@ -13,7 +13,7 @@
             this.Size = Size;
         }
 
-        public Sport(int Id, string Name, int Price, string Size) : base(Id, Name, Price)
+        public Sport(int Id, string Name, int Price, string ImagePath, int Discount, string Size) : base(Id, Name, Price, ImagePath, Discount)
         {
             this.Size = Size;
         }

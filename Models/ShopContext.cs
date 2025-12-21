@@ -11,7 +11,7 @@ namespace Shop_Lukashevich.Models
         {
         }
 
-        public ShopContext(int Id, string Name, int Price) : base(Id, Name, Price)
+        public ShopContext(int Id, string Name, int Price, string ImagePath, int Discount) : base(Id, Name, Price, ImagePath, Discount)
         {
         }
 
@@ -27,7 +27,9 @@ namespace Shop_Lukashevich.Models
                 ShopContext newShop = new ShopContext(
                     shopData.GetInt32(0),
                     shopData.GetString(1),
-                    shopData.GetInt32(2)
+                    shopData.GetInt32(2),
+                    shopData.GetString(3),
+                    shopData.GetInt32(4)
                 );
                 allShop.Add(newShop);
             }

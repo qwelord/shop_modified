@@ -12,15 +12,15 @@
                     <RowDefinition Height="200"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Image Margin="20" Width="160" Source="/Shop_Lukashevich;component/Images/ic_item.png"/>
+                <Image x:Name="img_Item" Margin="20" Width="160" />
                 <Label x:Name="tb_Name" Content="Наименование" Margin="10,10,10,0" Grid.Row="1" HorizontalContentAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Foreground="White"/>
                 <Label x:Name="tb_Price" Content="Цена: " Margin="10,41,10,0" Grid.Row="1" VerticalAlignment="Top" Foreground="White"/>
-                <Label x:Name="tb_Characteristic" Content="Характеристика: " Margin="10,72,10,0" Grid.Row="1" VerticalAlignment="Top" Foreground="White"/>
+                <Label x:Name="tb_DiscountedPrice" Content="Цена со скидкой: " Margin="10,62,10,0" Grid.Row="1" VerticalAlignment="Top" Foreground="Yellow"/>
+                <Label x:Name="tb_Characteristic" Content="Характеристика: " Margin="10,83,10,0" Grid.Row="1" VerticalAlignment="Top" Foreground="White"/>
             </Grid>
             <Border.Effect>
                 <DropShadowEffect BlurRadius="3"/>
             </Border.Effect>
         </Border>
-            
     </Grid>
 </UserControl>
