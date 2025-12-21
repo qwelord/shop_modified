@@ -1,10 +1,11 @@
 ﻿using System.Data.OleDb;
+using System.IO;
 
 namespace Shop_Lukashevich.Classes.Common
 {
     public class DBConnect
     {
-        public static readonly string Path = @"Shop.accdb";
+        public static readonly string Path = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Shop.accdb");
 
         public static OleDbConnection Connection()
         {
