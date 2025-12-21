@@ -15,17 +15,16 @@ using System.Windows.Shapes;
 
 namespace Shop_Lukashevich
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        List<object> AllItems = Classes.RepoItems.AllItems();
+        List<object> AllItems = new Models.ShopContext().All();
+
         public MainWindow()
         {
             InitializeComponent();
             CreateUI();
         }
+
         public void CreateUI()
         {
             foreach (object Item in AllItems)
@@ -33,26 +32,27 @@ namespace Shop_Lukashevich
                 parent.Children.Add(new Elements.Item(Item));
             }
         }
+
         public List<object> SearchByAnyCharacteristic(string keyword)
         {
             keyword = keyword.ToLower();
 
             return AllItems.Where(item =>
             {
-                if (item is Classes.Shop shop &&
+                if (item is Models.Shop shop &&
                     (shop.Name.ToLower().Contains(keyword) ||
                      shop.Price.ToString().Contains(keyword)))
                     return true;
 
-                if (item is Classes.Children child &&
+                if (item is Models.Children child &&
                     child.Age.ToString().Contains(keyword))
                     return true;
 
-                if (item is Classes.Sport sport &&
+                if (item is Models.Sport sport &&
                     sport.Size.ToLower().Contains(keyword))
                     return true;
 
-                if (item is Classes.Electronics electronics &&
+                if (item is Models.Electronics electronics &&
                     (electronics.BatteryCapacity.ToString().Contains(keyword) ||
                      electronics.Speed.ToString().Contains(keyword)))
                     return true;
@@ -60,7 +60,6 @@ namespace Shop_Lukashevich
                 return false;
             }).ToList();
         }
-
 
         private void Search_Click(object sender, RoutedEventArgs e)
         {

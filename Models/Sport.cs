@@ -1,16 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Shop_Lukashevich.Models
+﻿namespace Shop_Lukashevich.Models
 {
     public class Sport : Shop
     {
         public string Size { get; set; }
 
+        public Sport()
+        {
+        }
+
         public Sport(string Name, int Price, string Size) : base(Name, Price)
+        {
+            this.Size = Size;
+        }
+
+        public Sport(int Id, string Name, int Price, string Size) : base(Id, Name, Price)
         {
             this.Size = Size;
         }

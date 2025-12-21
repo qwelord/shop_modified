@@ -1,4 +1,4 @@
-﻿namespace Shop_Lukashevich.Classes
+﻿namespace Shop_Lukashevich.Models
 {
     public class Shop
     {

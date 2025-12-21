@@ -1,11 +1,9 @@
-﻿using Shop_Lukashevich.Classes.Common;
-using Shop_Lukashevich.Interfaces;
-using Shop_Lukashevich.Models;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.OleDb;
+using Shop_Lukashevich.Classes.Common;
+using Shop_Lukashevich.Interfaces;
 
-namespace Shop_Lukashevich.Classes
+namespace Shop_Lukashevich.Models
 {
     public class ShopContext : Shop, IContext
     {
@@ -21,8 +19,8 @@ namespace Shop_Lukashevich.Classes
         {
             List<object> allShop = new List<object>();
 
-            OleDbConnection connection = Common.DBConnect.Connection();
-            OleDbDataReader shopData = Common.DBConnect.Query("SELECT * FROM [Товар]", connection);
+            OleDbConnection connection = DBConnect.Connection();
+            OleDbDataReader shopData = DBConnect.Query("SELECT * FROM [Товар]", connection);
 
             while (shopData.Read())
             {
@@ -34,7 +32,7 @@ namespace Shop_Lukashevich.Classes
                 allShop.Add(newShop);
             }
 
-            Common.DBConnect.CloseConnection(connection);
+            DBConnect.CloseConnection(connection);
 
             return allShop;
         }

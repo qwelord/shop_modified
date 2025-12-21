@@ -15,30 +15,28 @@ using System.Windows.Shapes;
 
 namespace Shop_Lukashevich.Elements
 {
-    /// <summary>
-    /// Логика взаимодействия для Item.xaml
-    /// </summary>
     public partial class Item : UserControl
     {
         public Item(object ItemData)
         {
             InitializeComponent();
-            Classes.Shop ShopData = ItemData as Classes.Shop;
+            Models.Shop ShopData = ItemData as Models.Shop;
             tb_Name.Content = ShopData.Name;
             tb_Price.Content = "Цена: " + ShopData.Price;
-            if (ItemData is Classes.Children)
+
+            if (ItemData is Models.Children)
             {
-                Classes.Children ChildrenData = ItemData as Classes.Children;
+                Models.Children ChildrenData = ItemData as Models.Children;
                 tb_Characteristic.Content = "Возраст: " + ChildrenData.Age;
             }
-            if (ItemData is Classes.Sport)
+            if (ItemData is Models.Sport)
             {
-                Classes.Sport SportData = ItemData as Classes.Sport;
+                Models.Sport SportData = ItemData as Models.Sport;
                 tb_Characteristic.Content = "Размер: " + SportData.Size;
             }
-            if (ItemData is Classes.Electronics)
+            if (ItemData is Models.Electronics)
             {
-                Classes.Electronics electronicsData = ItemData as Classes.Electronics;
+                Models.Electronics electronicsData = ItemData as Models.Electronics;
                 tb_Characteristic.Content = $"Батарея: {electronicsData.BatteryCapacity} мАч, Скорость: {electronicsData.Speed} км/ч";
             }
         }
