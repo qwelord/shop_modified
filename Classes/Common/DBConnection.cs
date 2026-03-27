@@ -1,28 +1,27 @@
-﻿using System.Data.OleDb;
-using System.IO;
+﻿using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 
 namespace Shop_Lukashevich.Classes.Common
 {
     public class DBConnect
     {
-        public static readonly string Path = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Shop.accdb");
+        private static readonly string Config = "server=localhost;user=root;database=Shop;password=root;";
 
-        public static OleDbConnection Connection()
+        public static MySqlConnection Connection()
         {
-            OleDbConnection oleDbConnection = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" + Path);
-            oleDbConnection.Open();
-
-            return oleDbConnection;
+            MySqlConnection connection = new MySqlConnection(Config);
+            connection.Open();
+            return connection;
         }
 
-        public static OleDbDataReader Query(string Query, OleDbConnection Connection)
+        public static MySqlDataReader Query(string query, MySqlConnection connection)
         {
-            return new OleDbCommand(Query, Connection).ExecuteReader();
+            return new MySqlCommand(query, connection).ExecuteReader();
         }
 
-        public static void CloseConnection(OleDbConnection Connection)
+        public static void CloseConnection(MySqlConnection connection)
         {
-            Connection.Close();
+            connection.Close();
         }
     }
 }

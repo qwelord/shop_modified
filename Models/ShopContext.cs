@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Data.OleDb;
+using MySql.Data.MySqlClient;
 using Shop_Lukashevich.Classes.Common;
 using Shop_Lukashevich.Interfaces;
 
@@ -7,46 +7,39 @@ namespace Shop_Lukashevich.Models
 {
     public class ShopContext : Shop, IContext
     {
-        public ShopContext()
-        {
-        }
-
-        public ShopContext(int Id, string Name, int Price, string ImagePath, int Discount) : base(Id, Name, Price, ImagePath, Discount)
-        {
-        }
-
         public List<object> All()
         {
-            List<object> allShop = new List<object>();
-
-            OleDbConnection connection = DBConnect.Connection();
-            OleDbDataReader shopData = DBConnect.Query("SELECT * FROM [Товар]", connection);
-
-            while (shopData.Read())
+            List<object> allItems = new List<object>();
+            using (MySqlConnection connection = DBConnect.Connection())
             {
-                ShopContext newShop = new ShopContext(
-                    shopData.GetInt32(0),
-                    shopData.GetString(1),
-                    shopData.GetInt32(2),
-                    shopData.GetString(3),
-                    shopData.GetInt32(4)
-                );
-                allShop.Add(newShop);
+                MySqlDataReader reader = DBConnect.Query("SELECT i.*, c.Name as CategoryName FROM Items i JOIN Categorys c ON i.IdCategory = c.Id", connection);
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32("Id");
+                    string name = reader.GetString("Name");
+                    int price = reader.GetInt32("Price");
+                    string path = reader.IsDBNull(reader.GetOrdinal("ImagePath")) ? "" : reader.GetString("ImagePath");
+                    int discount = reader.GetInt32("Discount");
+                    string category = reader.GetString("CategoryName");
+                    string characteristic = reader.GetString("Characteristic");
+
+                    if (category == "Children")
+                        allItems.Add(new Children(id, name, price, path, discount, int.Parse(characteristic)));
+                    else if (category == "Sport")
+                        allItems.Add(new Sport(id, name, price, path, discount, characteristic));
+                    else if (category == "Electronics")
+                    {
+                        var parts = characteristic.Split(',');
+                        allItems.Add(new Electronics(id, name, price, path, discount, int.Parse(parts[0]), int.Parse(parts[1])));
+                    }
+                    else
+                        allItems.Add(new Shop(id, name, price, path, discount));
+                }
             }
-
-            DBConnect.CloseConnection(connection);
-
-            return allShop;
+            return allItems;
         }
 
-        public void Delete()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Save(bool Update = false)
-        {
-            throw new System.NotImplementedException();
-        }
+        public void Delete() { }
+        public void Save(bool Update = false) { }
     }
 }
